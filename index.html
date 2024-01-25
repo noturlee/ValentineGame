@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentines Edition - SMASH OR PASS</title>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f8f8f8;
+      font-family: Arial, sans-serif;
+    }
+
+    #menu {
+      text-align: center;
+    }
+
+    #gameTitle {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    #playButton {
+      font-size: 16px;
+      padding: 15px 30px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background-color: #3498db;
+      color: white;
+    }
+
+    #container {
+      text-align: center;
+      display: none;
+    }
+
+    #question {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    #buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    button {
+      font-size: 16px;
+      padding: 15px 30px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      margin: 0 10px;
+    }
+
+    #smash {
+      background-color: rgba(255, 0, 0, 0.7);
+      color: white;
+    }
+
+    #pass {
+      background-color: rgba(0, 255, 0, 0.7);
+      color: white;
+    }
+
+    #result {
+      text-align: center;
+      font-size: 30px;
+      font-weight: bold;
+      margin-top: 20px;
+      display: none;
+    }
+
+    .result-image {
+      margin-top: 20px;
+      max-width: 100%;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="menu">
+    <div id="gameTitle">SMASH OR PASS - Valentines Edition</div>
+    <button id="playButton" onclick="startGame()">Play</button>
+  </div>
+
+  <div id="container">
+    <div id="question">If I was with you right now, what would you do?</div>
+
+    <div id="buttons">
+      <button id="smash" onclick="showResult('smash')">SMASH</button>
+      <button id="pass" onclick="showResult('pass')">PASS</button>
+    </div>
+
+    <div id="result"></div>
+
+    <img id="valentineImage" class="result-image" src="https://www.icegif.com/wp-content/uploads/valentines-day-icegif-1.gif" alt="Valentine's Day Gif">
+    <img id="dontDateMeImage" class="result-image" src="https://i.gifer.com/embedded/download/W9jt.gif" alt="Don't Date Me Gif">
+    <img id="boringImage" class="result-image" src="https://media.baamboozle.com/uploads/images/40593/1631274661_12904_gif-url.gif" alt="Boring Gif">
+  </div>
+
+  <script>
+    function startGame() {
+      var menu = document.getElementById("menu");
+      var container = document.getElementById("container");
+
+      menu.style.display = "none";
+      container.style.display = "block";
+    }
+
+    var questions = [
+      "If I was with you right now, what would you do?",
+      "Would you rail me up against your motorbike?",
+      "What are you doing on 14th Feb?"
+    ];
+
+    var currentQuestionIndex = 0;
+    var smashCount = 0;
+    var passCount = 0;
+
+    function showResult(choice) {
+      var result = document.getElementById("result");
+      var smashButton = document.getElementById("smash");
+      var passButton = document.getElementById("pass");
+      var valentineImage = document.getElementById("valentineImage");
+      var dontDateMeImage = document.getElementById("dontDateMeImage");
+      var boringImage = document.getElementById("boringImage");
+
+      if (choice === 'smash') {
+        smashCount++;
+      } else {
+        passCount++;
+      }
+
+      result.innerHTML = "";
+
+      if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        document.getElementById("question").innerHTML = questions[currentQuestionIndex];
+      } else {
+        if (smashCount === 3) {
+          result.innerHTML = "Would you be my valentine?";
+          valentineImage.style.display = "block";
+        } else if (smashCount >= 2) {
+          result.innerHTML = "You're Boring 🥱";
+          boringImage.style.display = "block";
+        } else if (passCount === 3) {
+          result.innerHTML = "Then don't date me";
+          dontDateMeImage.style.display = "block";
+        }
+
+        smashButton.style.display = "none";
+        passButton.style.display = "none";
+
+        document.getElementById("question").style.display = "none";
+        result.style.display = "block";
+      }
+    }
+  </script>
+
+</body>
+</html>
